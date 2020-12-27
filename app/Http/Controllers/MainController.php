@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Feedback;
 use App\Models\Session;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -68,6 +69,19 @@ class MainController extends Controller
         $this->result['data'] = Session::where('date', '>', Carbon::now())->get();
         $this->result['status'] = $this->result['data'] ? 'ok' : 'false';
         $this->result['message'] = 'Коллекция регистраций';
+
+        return self::jsonResponse($this->result);
+    }
+
+    /**
+     * Отзывы
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getFeedback(){
+        $this->result['data'] = Feedback::where('active', 1)->get();
+        $this->result['status'] = $this->result['data'] ? 'ok' : 'false';
+        $this->result['message'] = 'Коллекция отзывов';
 
         return self::jsonResponse($this->result);
     }
