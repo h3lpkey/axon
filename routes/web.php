@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::post('/registration', [\App\Http\Controllers\MainController::class, 'registration'])->name('registration');
+
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();

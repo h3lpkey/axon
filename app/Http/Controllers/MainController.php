@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Session;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -17,8 +18,8 @@ class MainController extends Controller
     public function registration(Request $request)
     {
         $request->validate([
-            'date' => 'date',
-            'name' => 'string',
+            'calendar' => 'required',
+            'fullname' => 'string',
         ]);
 
         $result = [
@@ -27,15 +28,17 @@ class MainController extends Controller
             'data' => []
         ];
 
-        $session = Session::where('date', $request->date)->first();
+        $date = Carbon::parse($request->calendar);
+
+        $session = Session::where('calendar', $date)->first();
         if ($session) {
-            $result['message'] = 'Такая сессия уже забронирована';
+            $result['message'] = 'Ошибка. Такая сессия уже забронирована';
             return self::jsonResponse($result);
         }
         else{
             $session = new Session();
-            $session->date = $request->date;
-            $session->name = $request->name;
+            $session->calendar = $date;
+            $session->fullname = $request->fullname;
             $session->save();
 
             $result['status'] = 'ok';
