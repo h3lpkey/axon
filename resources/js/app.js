@@ -1,9 +1,10 @@
 require("./bootstrap");
 import Splide from "@splidejs/splide";
 import datepicker from "js-datepicker";
-console.log("run!!");
+console.log("JS scripts run normal");
 
 document.addEventListener("DOMContentLoaded", function() {
+    // sliders connect
     new Splide(".splide-insta", {
         type: "loop",
         perPage: 4,
@@ -26,10 +27,11 @@ document.addEventListener("DOMContentLoaded", function() {
         perPage: 1
     }).mount();
 
-    const picker = datepicker(document.querySelector("#calendar"), {
+    // datapicker connect
+    const picker = datepicker(document.querySelector("#inputCalendar"), {
         formatter: (input, date, instance) => {
             // This will display the date as `1/1/2019`.
-            console.log("date", date)
+            console.log("date", date);
             input.value = date.toDateString();
         },
         disabler: date => date.getDay() === 2,
@@ -37,4 +39,21 @@ document.addEventListener("DOMContentLoaded", function() {
         position: "tr" // Top right.
     });
 
+    // get data
+    axios.post("/api/getFeedback").then(response => {
+        console.log(response);
+    });
+    axios.post("/api/getStories").then(response => {
+        console.log(response);
+    });
+
+    // scipts
+    const registrationButtton = document.getElementById("registrationButtton");
+    const inputCalendar = document.getElementById("inputCalendar");
+    const inputFullname = document.getElementById("inputFullname");
+
+    registrationButtton.addEventListener("click", () => {
+        console.log("inputCalendar", inputCalendar.value);
+        console.log("inputFullname", inputFullname.value);
+    });
 });

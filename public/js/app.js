@@ -25265,8 +25265,9 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
-console.log("run!!");
+console.log("JS scripts run normal");
 document.addEventListener("DOMContentLoaded", function () {
+  // sliders connect
   new _splidejs_splide__WEBPACK_IMPORTED_MODULE_0___default.a(".splide-insta", {
     type: "loop",
     perPage: 4,
@@ -25286,8 +25287,9 @@ document.addEventListener("DOMContentLoaded", function () {
   new _splidejs_splide__WEBPACK_IMPORTED_MODULE_0___default.a(".splide-feedback", {
     type: "loop",
     perPage: 1
-  }).mount();
-  var picker = js_datepicker__WEBPACK_IMPORTED_MODULE_1___default()(document.querySelector("#calendar"), {
+  }).mount(); // datapicker connect
+
+  var picker = js_datepicker__WEBPACK_IMPORTED_MODULE_1___default()(document.querySelector("#inputCalendar"), {
     formatter: function formatter(input, date, instance) {
       // This will display the date as `1/1/2019`.
       console.log("date", date);
@@ -25300,6 +25302,21 @@ document.addEventListener("DOMContentLoaded", function () {
     // Calendar week starts on a Monday.
     position: "tr" // Top right.
 
+  }); // get data
+
+  axios.post("/api/getFeedback").then(function (response) {
+    console.log(response);
+  });
+  axios.post("/api/getStories").then(function (response) {
+    console.log(response);
+  }); // scipts
+
+  var registrationButtton = document.getElementById("registrationButtton");
+  var inputCalendar = document.getElementById("inputCalendar");
+  var inputFullname = document.getElementById("inputFullname");
+  registrationButtton.addEventListener("click", function () {
+    console.log("inputCalendar", inputCalendar.value);
+    console.log("inputFullname", inputFullname.value);
   });
 });
 

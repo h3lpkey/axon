@@ -225,8 +225,9 @@
     <h2 class="section-title section-title__calendar">РАСПИСАНИЕ</h2>
     <div class="calendar-block">
       <h2 class="calendar-block-title">Выберите и подтвердите дату для встречи.</h2>
-      <input type="text" id="calendar" class="calendar-block-input" placeholder="Выберите дату" />
-      <input type="text" id="fio" class="calendar-block-input" placeholder="Введите ФИО" />
+      <input type="text" id="inputCalendar" class="calendar-block-input" placeholder="Выберите дату" />
+      <input type="text" id="inputFullname" class="calendar-block-input" placeholder="Введите ФИО" />
+      <button class="button" id="registrationButtton">Зарегистрироваться</button>
     </div>
     <div class="calendar-text">
       <p class="calendar-text-info">
