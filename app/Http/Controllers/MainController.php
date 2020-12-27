@@ -10,6 +10,23 @@ class MainController extends Controller
 {
 
     /**
+     * @var array отдавать через этот массив
+     */
+    private $result = [];
+
+    /**
+     * MainController constructor.
+     */
+    public function __construct()
+    {
+        $this->result = [
+            'status' => 'false',
+            'message' => '',
+            'data' => []
+        ];
+    }
+
+    /**
      * Регистрация новой сессии
      *
      * @param Request $request
@@ -22,29 +39,36 @@ class MainController extends Controller
             'fullname' => 'string',
         ]);
 
-        $result = [
-            'status' => 'false',
-            'message' => '',
-            'data' => []
-        ];
-
         $date = Carbon::parse($request->calendar);
 
         $session = Session::where('calendar', $date)->first();
         if ($session) {
-            $result['message'] = 'Ошибка. Такая сессия уже забронирована';
-            return self::jsonResponse($result);
-        }
-        else{
+            $this->result['message'] = 'Ошибка. Такая сессия уже забронирована';
+            return self::jsonResponse($this->result);
+        } else {
             $session = new Session();
             $session->calendar = $date;
             $session->fullname = $request->fullname;
             $session->save();
 
-            $result['status'] = 'ok';
-            $result['message'] = 'Новая сессия забронирована';
-            $result['data'] = $session;
-            return self::jsonResponse($result);
+            $this->result['status'] = 'ok';
+            $this->result['message'] = 'Новая сессия забронирована';
+            $this->result['data'] = $session;
+            return self::jsonResponse($this->result);
         }
+    }
+
+    /**
+     * Регистрации
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getRegistrations()
+    {
+        $this->result['data'] = Session::where('date', '>', Carbon::now())->get();
+        $this->result['status'] = $this->result['data'] ? 'ok' : 'false';
+        $this->result['message'] = 'Коллекция регистраций';
+
+        return self::jsonResponse($this->result);
     }
 }

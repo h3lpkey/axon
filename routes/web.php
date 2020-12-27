@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 Route::post('/registration', [\App\Http\Controllers\MainController::class, 'registration'])->name('registration');
+Route::post('/getRegistrations', [\App\Http\Controllers\MainController::class, 'getRegistrations'])->name('getRegistrations');
 
 
 Route::group(['prefix' => 'admin'], function () {
