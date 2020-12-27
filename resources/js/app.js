@@ -40,10 +40,10 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // get data
-    axios.post("/api/getFeedback").then(response => {
+    axios.post("/getFeedback").then(response => {
         console.log(response);
     });
-    axios.post("/api/getStories").then(response => {
+    axios.post("/getStories").then(response => {
         console.log(response);
     });
 
@@ -55,5 +55,21 @@ document.addEventListener("DOMContentLoaded", function() {
     registrationButtton.addEventListener("click", () => {
         console.log("inputCalendar", inputCalendar.value);
         console.log("inputFullname", inputFullname.value);
+        axios
+            .post("/registration", {
+                calendar: convertDate(inputCalendar.value),
+                fullname: inputFullname.value
+            })
+            .then(response => {
+                console.log(response);
+            });
     });
 });
+
+function convertDate(inputFormat) {
+    function pad(s) {
+        return s < 10 ? "0" + s : s;
+    }
+    var d = new Date(inputFormat);
+    return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join("-");
+}

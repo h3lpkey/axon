@@ -25304,10 +25304,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   }); // get data
 
-  axios.post("/api/getFeedback").then(function (response) {
+  axios.post("/getFeedback").then(function (response) {
     console.log(response);
   });
-  axios.post("/api/getStories").then(function (response) {
+  axios.post("/getStories").then(function (response) {
     console.log(response);
   }); // scipts
 
@@ -25317,8 +25317,23 @@ document.addEventListener("DOMContentLoaded", function () {
   registrationButtton.addEventListener("click", function () {
     console.log("inputCalendar", inputCalendar.value);
     console.log("inputFullname", inputFullname.value);
+    axios.post("/registration", {
+      calendar: convertDate(inputCalendar.value),
+      fullname: inputFullname.value
+    }).then(function (response) {
+      console.log(response);
+    });
   });
 });
+
+function convertDate(inputFormat) {
+  function pad(s) {
+    return s < 10 ? "0" + s : s;
+  }
+
+  var d = new Date(inputFormat);
+  return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join("-");
+}
 
 /***/ }),
 
