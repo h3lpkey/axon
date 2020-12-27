@@ -25309,6 +25309,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   axios.post("/getStories").then(function (response) {
     console.log(response);
+  });
+  axios.post("/getRegistrations").then(function (response) {
+    console.log(response);
   }); // scipts
 
   var registrationButtton = document.getElementById("registrationButtton");

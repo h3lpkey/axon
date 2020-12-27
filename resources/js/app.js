@@ -46,6 +46,9 @@ document.addEventListener("DOMContentLoaded", function() {
     axios.post("/getStories").then(response => {
         console.log(response);
     });
+    axios.post("/getRegistrations").then(response => {
+        console.log(response);
+    });
 
     // scipts
     const registrationButtton = document.getElementById("registrationButtton");
